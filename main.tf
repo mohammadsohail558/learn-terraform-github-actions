@@ -39,9 +39,6 @@ resource "aws_instance" "web" {
               echo "Hello, World" > index.html
               nohup busybox httpd -f -p 8080 &
               EOF
-	tags = {
-		Name = "Web-Server"
-	}
 }
 
 resource "aws_security_group" "web-sg" {
@@ -56,4 +53,8 @@ resource "aws_security_group" "web-sg" {
 
 output "web-address" {
   value = "${aws_instance.web.public_dns}:8080"
+}
+
+output "publicIP"{
+	value = aws_instance.web.public_ip
 }
